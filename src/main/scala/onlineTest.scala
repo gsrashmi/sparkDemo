@@ -107,7 +107,7 @@ object onlineTest {
       val df01 = df_ratings.groupBy("movieID").agg(count(df_ratings("Rating")).as("N_views"),
         avg("Rating").as("Average")).where("N_views > 100 ").orderBy(desc("Average"))
       val  movie_names_df = df01.join(df_movies,"movieID")  .orderBy(desc("Average"))
-      println("\n..Start Question 3 by DataFrame..........")
+      println("\n..Starts Question 3 by DataFrame..........")
       df01.orderBy(desc("Average")).withColumn("seq",lit(0))
         .withColumn("Rank", row_number() over(Window.partitionBy("seq").orderBy("seq"))).drop("seq").show(100,false)
       movie_names_df.withColumn("seq",lit(0))
